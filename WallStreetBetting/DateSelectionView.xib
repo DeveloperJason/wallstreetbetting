@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DateSelectionView" customModule="WallStreetBetting" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="Gyc-gS-1O4"/>
+                <outlet property="datePicker" destination="T7m-tw-zPi" id="0Jo-K5-FTm"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-yr-o4E">
+                    <rect key="frame" x="20" y="303.5" width="374" height="289"/>
+                    <subviews>
+                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="T7m-tw-zPi">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="216"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="dateChanged:" destination="-1" eventType="valueChanged" id="8DM-xO-4g3"/>
+                            </connections>
+                        </datePicker>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zbT-9o-JhS">
+                            <rect key="frame" x="0.0" y="221" width="374" height="68"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="p6M-fm-kr1">
+                                    <rect key="frame" x="10" y="10" width="354" height="48"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rea-Uj-pN3">
+                                            <rect key="frame" x="0.0" y="0.0" width="167" height="48"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="Cancel">
+                                                <color key="baseForegroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="baseBackgroundColor" systemColor="systemGray2Color"/>
+                                            </buttonConfiguration>
+                                            <connections>
+                                                <action selector="cancelClicked" destination="-1" eventType="touchUpInside" id="bUW-iV-uBV"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xe9-IG-0Fd">
+                                            <rect key="frame" x="187" y="0.0" width="167" height="48"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="filled" title="Load Date's Discussions"/>
+                                            <connections>
+                                                <action selector="loadDateClicked" destination="-1" eventType="touchUpInside" id="AmV-Oc-Ec3"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="p6M-fm-kr1" firstAttribute="top" secondItem="zbT-9o-JhS" secondAttribute="top" constant="10" id="FGG-Dk-pTe"/>
+                                <constraint firstAttribute="trailing" secondItem="p6M-fm-kr1" secondAttribute="trailing" constant="10" id="GTr-tx-FMW"/>
+                                <constraint firstAttribute="bottom" secondItem="p6M-fm-kr1" secondAttribute="bottom" constant="10" id="Hwu-3P-fEI"/>
+                                <constraint firstItem="p6M-fm-kr1" firstAttribute="leading" secondItem="zbT-9o-JhS" secondAttribute="leading" constant="10" id="Wt9-Mv-ByI"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Sgz-Ui-QCX"/>
+            <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="mfz-yr-o4E" secondAttribute="trailing" constant="20" id="8dz-NW-tJ3"/>
+                <constraint firstItem="mfz-yr-o4E" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Erv-iF-1NU"/>
+                <constraint firstItem="mfz-yr-o4E" firstAttribute="leading" secondItem="Sgz-Ui-QCX" secondAttribute="leading" constant="20" id="Nan-uT-x3z"/>
+                <constraint firstItem="mfz-yr-o4E" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="l2G-Hd-vC2"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="139" y="121"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

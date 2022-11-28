@@ -1,24 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Discussion View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="DiscussionViewController" customModule="WallStreetBetting" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uju-Pd-s6i">
+                                <rect key="frame" x="0.0" y="44" width="414" height="42"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="1000" text="Loading discussions... " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tF-hc-fbQ">
+                                        <rect key="frame" x="50" y="0.0" width="313.5" height="42"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tHy-gk-fo8">
+                                        <rect key="frame" x="363.5" y="0.0" width="50.5" height="42"/>
+                                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="20" maxY="10"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="magnifyingglass" catalog="system"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="tHy-gk-fo8" firstAttribute="leading" secondItem="6tF-hc-fbQ" secondAttribute="trailing" id="0sP-Gp-uiV"/>
+                                    <constraint firstAttribute="bottom" secondItem="tHy-gk-fo8" secondAttribute="bottom" id="15y-YQ-eMF"/>
+                                    <constraint firstItem="tHy-gk-fo8" firstAttribute="top" secondItem="Uju-Pd-s6i" secondAttribute="top" id="FMO-7G-ZpD"/>
+                                    <constraint firstItem="6tF-hc-fbQ" firstAttribute="top" secondItem="Uju-Pd-s6i" secondAttribute="top" id="Nva-Y0-oCD"/>
+                                    <constraint firstAttribute="trailing" secondItem="tHy-gk-fo8" secondAttribute="trailing" id="jRQ-dF-1bQ"/>
+                                    <constraint firstItem="6tF-hc-fbQ" firstAttribute="leading" secondItem="Uju-Pd-s6i" secondAttribute="leading" constant="50" id="q9x-4X-N4v"/>
+                                    <constraint firstAttribute="bottom" secondItem="6tF-hc-fbQ" secondAttribute="bottom" id="yty-rb-iXX"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hG-RJ-WXt">
+                                <rect key="frame" x="20" y="831" width="374" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Choose Date"/>
+                                <connections>
+                                    <action selector="chooseDateClicked" destination="BYZ-38-t0r" eventType="touchUpInside" id="dFi-ii-bxd"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fup-0J-6Pv">
+                                <rect key="frame" x="0.0" y="86" width="414" height="737"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IgL-6Z-6Nw" customClass="DateSelectionView" customModule="WallStreetBetting" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="HvP-Oq-i5r">
+                                <rect key="frame" x="0.0" y="426" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IgL-6Z-6Nw" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Hds-qO-m3H"/>
+                            <constraint firstItem="Uju-Pd-s6i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Nt0-CY-H7L"/>
+                            <constraint firstItem="9hG-RJ-WXt" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="R7S-Xr-MXG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Uju-Pd-s6i" secondAttribute="trailing" id="SG2-Vk-vKM"/>
+                            <constraint firstItem="IgL-6Z-6Nw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SpG-lJ-a8t"/>
+                            <constraint firstItem="Fup-0J-6Pv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="TNZ-4q-432"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9hG-RJ-WXt" secondAttribute="trailing" constant="20" id="XUe-om-UWp"/>
+                            <constraint firstItem="9hG-RJ-WXt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dOA-J6-3no"/>
+                            <constraint firstItem="Uju-Pd-s6i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dcv-DB-k1J"/>
+                            <constraint firstAttribute="bottom" secondItem="IgL-6Z-6Nw" secondAttribute="bottom" id="jz1-wM-v14"/>
+                            <constraint firstItem="IgL-6Z-6Nw" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="nev-Ch-OF2"/>
+                            <constraint firstItem="9hG-RJ-WXt" firstAttribute="top" secondItem="Fup-0J-6Pv" secondAttribute="bottom" constant="8" symbolic="YES" id="tq0-AK-Rda"/>
+                            <constraint firstItem="Fup-0J-6Pv" firstAttribute="top" secondItem="Uju-Pd-s6i" secondAttribute="bottom" id="yEb-bu-IM6"/>
+                            <constraint firstItem="Fup-0J-6Pv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zZP-q2-7FU"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="HvP-Oq-i5r" id="FyA-ao-BFL"/>
+                        <outlet property="dateLabel" destination="6tF-hc-fbQ" id="Zcz-3F-Zg8"/>
+                        <outlet property="dateSelectionButton" destination="9hG-RJ-WXt" id="fvL-S2-rke"/>
+                        <outlet property="dateSelectionView" destination="IgL-6Z-6Nw" id="Xlw-Vu-fYa"/>
+                        <outlet property="tableView" destination="Fup-0J-6Pv" id="4hf-hD-QXk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="119.86607142857142"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
