@@ -8,13 +8,14 @@
 import UIKit
 import Combine
 
-class DiscussionViewController: UIViewController {
+class DiscussionViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var dateSelectionView: DateSelectionView!
     @IBOutlet weak var dateSelectionButton: UIButton!
+    @IBOutlet weak var searchTextField: UITextField!
     
     private let refreshControl = UIRefreshControl()
     private var subscriptions = Set<AnyCancellable>()
@@ -27,6 +28,9 @@ class DiscussionViewController: UIViewController {
         tableView.dataSource = self
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         tableView.refreshControl = refreshControl
+        searchTextField.delegate = self
+        searchTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
         setupBindings()
     }
     
@@ -40,6 +44,12 @@ class DiscussionViewController: UIViewController {
         viewModel.$discussions
             .receive(on: DispatchQueue.main)
             .sink { [weak self] discussions in
+                self?.tableView.reloadData()
+            }
+            .store(in: &subscriptions)
+        viewModel.$filterString
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] filterString in
                 self?.tableView.reloadData()
             }
             .store(in: &subscriptions)
@@ -66,11 +76,23 @@ class DiscussionViewController: UIViewController {
         dateSelectionView.isHidden = false
     }
     
-    @objc
-    func handleRefresh() {
+    @objc func handleRefresh() {
         viewModel.getDiscussions(date: dateSelectionView.dateSelected)
     }
+        
+    @objc func textFieldDidChange(textField: UITextField) {
+        viewModel.setSearch(textField.text)
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        dismissKeyboard()
+        return true
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
 }
 
 extension DiscussionViewController: UITableViewDataSource {

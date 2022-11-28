@@ -14,6 +14,7 @@ class DiscussionViewModel {
     @Published private(set) var discussions = [StockDiscussion]()
     @Published private(set) var isLoading = false
     @Published private(set) var statusText = ""
+    @Published private(set) var filterString: String?
     
     init(repo: StockDiscussionRepository = StockDiscussionRepository()) {
         self.repo = repo
@@ -36,23 +37,50 @@ class DiscussionViewModel {
     }
     
     func getNumberOfRows() -> Int {
-        return discussions.count
+        if let filter = filterString {
+            return discussions.filter { $0.ticker.contains(filter) }.count
+        } else {
+            return discussions.count
+        }
     }
     
     func getTickerText(row: Int) -> String {
-        return discussions[row].ticker
+        if let filter = filterString {
+            return discussions.filter { $0.ticker.contains(filter) }[row].ticker
+        } else {
+            return discussions[row].ticker
+        }
     }
     
     func getCommentLabelText(row: Int) -> String {
-        return "Comments: \(discussions[row].noOfComments)"
+        if let filter = filterString {
+            return "Comments: \(discussions.filter { $0.ticker.contains(filter) }[row].noOfComments)"
+        } else {
+            return "Comments: \(discussions[row].noOfComments)"
+        }
     }
     
     func getSentimentLabelText(row: Int) -> String {
-        return "Sentiment: \(discussions[row].sentimentScore)"
+        if let filter = filterString {
+            return "Sentiment: \(discussions.filter { $0.ticker.contains(filter) }[row].sentimentScore)"
+        } else {
+            return "Sentiment: \(discussions[row].sentimentScore)"
+        }
     }
     
     func getSentimentCategory(row: Int) -> Sentiment {
-        return discussions[row].sentiment ?? .neutral
+        if let filter = filterString {
+            return discussions.filter { $0.ticker.contains(filter) }[row].sentiment ?? .neutral
+        } else {
+            return discussions[row].sentiment ?? .neutral
+        }
     }
-
+    
+    func setSearch(_ string: String?) {
+        if let searchString = string, searchString.count > 0 {
+            filterString = searchString.uppercased()
+        } else {
+            filterString = nil
+        }
+    }
 }
