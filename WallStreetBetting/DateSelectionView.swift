@@ -32,10 +32,6 @@ class DateSelectionView: UIView {
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         datePicker.maximumDate = Date()
     }
-
-    @IBAction func dateChanged(_ sender: UIDatePicker) {
-        
-    }
     
     @IBAction func loadDateClicked() {
         dateSelected = datePicker.date

@@ -24,19 +24,23 @@ class DiscussionViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "DiscussionTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
-        tableView.dataSource = self
-        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        tableView.refreshControl = refreshControl
-        searchTextField.delegate = self
-        searchTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        setupViews()
         setupBindings()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.getDiscussions(date: nil)
+    }
+    
+    func setupViews() {
+        tableView.register(UINib(nibName: "DiscussionTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+        searchTextField.delegate = self
+        searchTextField.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
     }
     
     func setupBindings() {
@@ -85,17 +89,13 @@ class DiscussionViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        dismissKeyboard()
-        return true
-    }
-    
-    @objc func dismissKeyboard() {
         view.endEditing(true)
+        return true
     }
 
 }
 
-extension DiscussionViewController: UITableViewDataSource {
+extension DiscussionViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? DiscussionTableViewCell else { return UITableViewCell() }
@@ -110,4 +110,10 @@ extension DiscussionViewController: UITableViewDataSource {
         return viewModel.getNumberOfRows()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let ticker = viewModel.getTickerText(row: indexPath.row)
+        let url = URL(string: "https://finance.yahoo.com/quote/\(ticker)/")!
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
 }
