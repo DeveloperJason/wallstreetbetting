@@ -9,7 +9,14 @@ import Foundation
 
 class StockDiscussionRepository {
     
-    func getTop50StockDiscussions(date: String? = nil, completion: @escaping (_ discussions: Array<StockDiscussion>?, _ error: String?) -> Void) {
+    class RepositoryError: Error {
+        let description: String
+        init(_ description: String) {
+            self.description = description
+        }
+    }
+    
+    func getTop50StockDiscussions(date: String? = nil, completion: @escaping (Result<[StockDiscussion],RepositoryError>) -> Void) {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "tradestie.com"
@@ -25,7 +32,7 @@ class StockDiscussionRepository {
         let task = session.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    completion(nil, error.localizedDescription)
+                    completion(.failure(RepositoryError(error.localizedDescription)))
                 } else if let data = data {
                     if let jsonData = try? JSONSerialization.jsonObject(with: data, options: []) as? Array<Dictionary<String,Any>> {
                         var discussions = [StockDiscussion]()
@@ -33,12 +40,12 @@ class StockDiscussionRepository {
                             let discussion = StockDiscussion(dict: obj)
                             discussions.append(discussion)
                         }
-                        completion(discussions, nil)
+                        completion(.success(discussions))
                     } else {
-                        completion(nil, "Unexpected Error")
+                        completion(.failure(RepositoryError("Unexpected Error")))
                     }
                 } else {
-                    completion(nil, "Unexpected Error")
+                    completion(.failure(RepositoryError("Unexpected Error")))
                 }
             }
         }

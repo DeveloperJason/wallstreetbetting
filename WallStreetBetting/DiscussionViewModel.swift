@@ -24,14 +24,15 @@ class DiscussionViewModel {
         discussions.removeAll()
         isLoading = true
         statusText = "Loading discussions..."
-        repo.getTop50StockDiscussions(date: date?.apiReadyString()) { [weak self] discussions, error in
+        repo.getTop50StockDiscussions(date: date?.apiReadyString()) { [weak self] result in
             self?.isLoading = false
-            if let discs = discussions {
+            switch result {
+            case .success(let discs):
                 self?.discussions = discs
                 let timestamp = Date().timestampDisplayString()
                 self?.statusText = "Updated at \(timestamp)"
-            } else {
-                self?.statusText = error ?? "Error loading discussions"
+            case .failure(let error):
+                self?.statusText = error.description
             }
         }
     }
